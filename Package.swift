@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -13,15 +13,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/appintheair/MRZParser.git", .upToNextMajor(from: "1.1.2"))
+        .package(url: "https://github.com/Dim434/MRZParser.git", branch: "develop")
     ],
     targets: [
         .target(
             name: "MRZScanner",
             dependencies: ["MRZParser"]
         ),
-        .testTarget(
-            name: "MRZScannerTests",
-            dependencies: ["MRZScanner"]),
+//        .testTarget(
+//            name: "MRZScannerTests",
+//            dependencies: ["MRZScanner"]),
     ]
 )

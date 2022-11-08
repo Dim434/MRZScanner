@@ -6,6 +6,7 @@
 //
 
 import CoreImage
+import MRZParser
 
 struct DefaultScanner: Scanner {
     enum ScanningError: Error {
@@ -35,7 +36,7 @@ struct DefaultScanner: Scanner {
         minimumTextHeight: Float?,
         recognitionLevel: RecognitionLevel,
         foundBoundingRectsHandler: (([CGRect]) -> Void)? = nil,
-        completionHandler: @escaping (Result<DocumentScanningResult<ParsedResult>, Error>) -> Void
+        completionHandler: @escaping (Result<DocumentScanningResult<MRZCode>, Error>) -> Void
     ) {
         textRecognizer.recognize(
             scanningImage: scanningImage,

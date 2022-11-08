@@ -6,6 +6,7 @@
 //
 
 import CoreImage
+import MRZParser
 
 public final class LiveMRZScanner: ScannerService, LiveScanner {
     let scanner: DefaultScanner
@@ -38,7 +39,7 @@ public final class LiveMRZScanner: ScannerService, LiveScanner {
         regionOfInterest: CGRect? = nil,
         minimumTextHeight: Float? = nil,
         foundBoundingRectsHandler: (([CGRect]) -> Void)? = nil,
-        completionHandler: @escaping (Result<DocumentScanningResult<ParsedResult>, Error>) -> Void
+        completionHandler: @escaping (Result<DocumentScanningResult<MRZCode>, Error>) -> Void
     ) {
         scanner.scan(
             scanningType: .live,
@@ -52,12 +53,8 @@ public final class LiveMRZScanner: ScannerService, LiveScanner {
                 switch result {
                 case .success(let scanningResult):
                     guard self.tracker.isResultStable(scanningResult.result) else { return }
-
                     completionHandler(
-                        .success(.init(
-                            result: scanningResult.result,
-                            boundingRects: scanningResult.boundingRects
-                        ))
+                        .success(.init(result: scanningResult.result, boundingRects: (valid: [], invalid: [])))
                     )
                 case .failure(let error):
                     completionHandler(.failure(error))

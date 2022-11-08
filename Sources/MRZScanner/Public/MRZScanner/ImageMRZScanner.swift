@@ -6,6 +6,7 @@
 //
 
 import CoreImage
+import MRZParser
 
 public struct ImageMRZScanner: ScannerService {
     let scanner: DefaultScanner
@@ -33,7 +34,7 @@ public struct ImageMRZScanner: ScannerService {
         minimumTextHeight: Float? = nil,
         recognitionLevel: RecognitionLevel = .accurate,
         foundBoundingRectsHandler: (([CGRect]) -> Void)? = nil,
-        completionHandler: @escaping (Result<DocumentScanningResult<ParsedResult>, Error>) -> Void
+        completionHandler: @escaping (Result<DocumentScanningResult<MRZCode>, Error>) -> Void
     ) {
         scanner.scan(
             scanningType: .single,
